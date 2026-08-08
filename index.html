@@ -1,0 +1,865 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="royal">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>弈勇 · AI 资源站</title>
+  <meta name="description" content="弈勇的个人网站：AI 资源项目、流量内容运营、任务接广与拉新项目">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%23d4af37'/%3E%3Cstop offset='1' stop-color='%23dc2626'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='64' height='64' rx='16' fill='url(%23g)'/%3E%3Ctext x='32' y='44' font-family=''Microsoft YaHei','PingFang SC',sans-serif' font-size='30' font-weight='700' fill='%23fff' text-anchor='middle'%3E%E5%BC%88%3C/text%3E%3C/svg%3E">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <canvas id="techBgGlobal" aria-hidden="true"></canvas>
+  <div id="grainGlobal" aria-hidden="true"></div>
+  <div class="progress-bar" id="progressBar" aria-hidden="true"></div>
+
+  <header class="nav" id="nav">
+    <div class="nav-inner">
+      <a class="brand" href="#top">
+        <span class="brand-mark">弈</span>
+        <span class="brand-name">弈勇 AI 资源站</span>
+      </a>
+      <nav class="nav-links" id="navLinks">
+        <a href="#top">首页</a>
+        <a href="#projects">项目</a>
+        <a href="#experience">经历</a>
+        <a href="#works">作品</a>
+        <a href="#resources">资源</a>
+        <span class="theme-wrap" id="themeWrap">
+        <button class="nav-theme" id="themeToggle" type="button">??</button>
+        <div class="theme-picker" id="themePicker" hidden></div>
+      </span>
+        <a href="#contact" class="nav-cta">联系我</a>
+      </nav>
+      <button class="nav-toggle" id="navToggle" aria-label="菜单">☰</button>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="hero-bg" aria-hidden="true"></div>
+      <div class="hero-orb hero-orb-1" aria-hidden="true"></div>
+      <div class="hero-orb hero-orb-2" aria-hidden="true"></div>
+      <div class="hero-orb hero-orb-3" aria-hidden="true"></div>
+      <div class="hero-rings" aria-hidden="true">
+        <div class="hero-ring hero-ring-a"></div>
+        <div class="hero-ring hero-ring-b"></div>
+      </div>
+      <div class="hero-scan" aria-hidden="true"></div>
+      <div id="nebula3d" aria-hidden="true"></div>
+      <div class="hero-inner">
+        <div class="hero-orbit reveal" id="heroOrbit">
+          <div class="hero-orbit-center">
+            <p class="eyebrow">高中生 · AI 资源项目开发者</p>
+            <h1>让 <span class="gradient-text">AI</span> 从想法变成现实</h1>
+            <p class="lead">你好，我是弈勇，一名专注 AI 资源项目开发的高中生，做过上亿流量的图文内容，也带过百人团队，现在专注拉新项目与资源整合。</p>
+            <div class="hero-actions">
+              <a class="btn btn-primary" href="#projects">查看项目</a>
+              <a class="btn btn-ghost" href="#contact">联系我</a>
+            </div>
+          </div>
+          <a class="hero-orbit-item" data-filter="tool" data-desc="让长文写作像聊天一样流畅的智能编辑器。" data-resources="长文生成|一键改写|多语言|内容规划" href="#projects">AI 写作助手</a>
+          <a class="hero-orbit-item" data-filter="app" data-desc="一句话生成海报、头像与插画素材。" data-resources="海报生成|头像定制|插画素材|批量出图" href="#projects">AI 图像工坊</a>
+          <a class="hero-orbit-item" data-filter="tool" data-desc="用自然语言提问，AI 帮你完成分析。" data-resources="自然语言分析|报表生成|趋势追踪|多数据源" href="#projects">数据洞察平台</a>
+          <a class="hero-orbit-item" data-filter="open" data-desc="开箱即用的多轮对话客服框架。" data-resources="多轮对话|知识库|工单转接|消息通知" href="#projects">智能客服机器人</a>
+          <a class="hero-orbit-item" data-filter="app" data-desc="从脚本到成片，一站式视频生成工作台。" data-resources="脚本生成|自动成片|字幕配音|模板库" href="#projects">AI 视频创作</a>
+          <a class="hero-orbit-item" data-filter="open" data-desc="用真实任务持续追踪开源模型表现。" data-resources="真实任务评测|持续更新|开源榜单|对比报告" href="#projects">模型评测榜</a>
+          <a class="hero-orbit-item" data-filter="tool" data-desc="转写、合成、会议纪要，一条龙搞定。" data-resources="语音转写|合成配音|会议纪要|多端同步" href="#projects">AI 语音助手</a>
+          <a class="hero-orbit-item" data-filter="open" data-desc="每周一个动手项目，一起成长的开源课程。" data-resources="每周项目|开源课程|作业点评|成长社群" href="#projects">AI 学习营</a>
+        </div>
+      </div>
+      <div class="hero-stats">
+        <div class="stat"><strong>上亿</strong><span>快手平台流量</span></div>
+        <div class="stat"><strong>上千万</strong><span>抖音平台流量</span></div>
+        <div class="stat"><strong>100+</strong><span>直属人员</span></div>
+        <div class="stat"><strong>30w</strong><span>累计业绩</span></div>
+      </div>
+    </section>
+
+    <section class="section" id="projects">
+      <div class="section-head reveal">
+        <p class="eyebrow">Projects</p>
+        <h2>精选 AI 项目</h2>
+        <p>从工具到模型，这里是我做过和正在做的事。</p>
+        <div class="filters" id="projectFilters">
+          <button class="chip active" data-filter="all">全部</button>
+          <button class="chip" data-filter="tool">工具</button>
+          <button class="chip" data-filter="app">应用</button>
+          <button class="chip" data-filter="open">开源</button>
+        </div>
+      </div>
+      <div class="grid" id="projectGrid">
+        <article class="card reveal" data-tag="tool">
+          <div class="card-media"><img src="images/project-1.svg" alt="AI 写作助手" loading="lazy"></div>
+          <div class="card-body">
+            <span class="tag">工具</span>
+            <h3>AI 写作助手</h3>
+            <p>让长文写作像聊天一样流畅的智能编辑器。</p>
+            <a class="card-link" href="#">查看项目 →</a>
+          </div>
+        </article>
+        <article class="card reveal" data-tag="app">
+          <div class="card-media"><img src="images/project-2.svg" alt="AI 图像工坊" loading="lazy"></div>
+          <div class="card-body">
+            <span class="tag">应用</span>
+            <h3>AI 图像工坊</h3>
+            <p>一句话生成海报、头像与插画素材。</p>
+            <a class="card-link" href="#">查看项目 →</a>
+          </div>
+        </article>
+        <article class="card reveal" data-tag="tool">
+          <div class="card-media"><img src="images/project-3.svg" alt="数据洞察平台" loading="lazy"></div>
+          <div class="card-body">
+            <span class="tag">工具</span>
+            <h3>数据洞察平台</h3>
+            <p>用自然语言提问，AI 帮你完成分析。</p>
+            <a class="card-link" href="#">查看项目 →</a>
+          </div>
+        </article>
+        <article class="card reveal" data-tag="open">
+          <div class="card-media"><img src="images/project-4.svg" alt="智能客服机器人" loading="lazy"></div>
+          <div class="card-body">
+            <span class="tag">开源</span>
+            <h3>智能客服机器人</h3>
+            <p>开箱即用的多轮对话客服框架。</p>
+            <a class="card-link" href="#">查看项目 →</a>
+          </div>
+        </article>
+        <article class="card reveal" data-tag="app">
+          <div class="card-media"><img src="images/project-5.svg" alt="AI 视频创作" loading="lazy"></div>
+          <div class="card-body">
+            <span class="tag">应用</span>
+            <h3>AI 视频创作</h3>
+            <p>从脚本到成片，一站式视频生成工作台。</p>
+            <a class="card-link" href="#">查看项目 →</a>
+          </div>
+        </article>
+        <article class="card reveal" data-tag="open">
+          <div class="card-media"><img src="images/project-6.svg" alt="模型评测榜" loading="lazy"></div>
+          <div class="card-body">
+            <span class="tag">开源</span>
+            <h3>模型评测榜</h3>
+            <p>用真实任务持续追踪开源模型表现。</p>
+            <a class="card-link" href="#">查看项目 →</a>
+          </div>
+        </article>
+        <article class="card reveal" data-tag="tool">
+          <div class="card-media"><img src="images/project-7.svg" alt="AI 语音助手" loading="lazy"></div>
+          <div class="card-body">
+            <span class="tag">工具</span>
+            <h3>AI 语音助手</h3>
+            <p>转写、合成、会议纪要，一条龙搞定。</p>
+            <a class="card-link" href="#">查看项目 →</a>
+          </div>
+        </article>
+        <article class="card reveal" data-tag="open">
+          <div class="card-media"><img src="images/project-8.svg" alt="AI 学习营" loading="lazy"></div>
+          <div class="card-body">
+            <span class="tag">开源</span>
+            <h3>AI 学习营</h3>
+            <p>每周一个动手项目，一起成长的开源课程。</p>
+            <a class="card-link" href="#">查看项目 →</a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="experience">
+      <div class="section-head reveal">
+        <p class="eyebrow">Experience</p>
+        <h2>工作经历</h2>
+        <p>以图文内容为主，做过多平台爆款流量。</p>
+      </div>
+      <div class="timeline">
+        <div class="tl-item reveal">
+          <h3>快手 · 图文内容运营</h3>
+          <span class="tl-role">平台流量 上亿</span>
+          <p>擅长爆款图文策划与流量放大，以图文形式持续产出高曝光内容。</p>
+        </div>
+        <div class="tl-item reveal">
+          <h3>抖音 · 图文内容运营</h3>
+          <span class="tl-role">平台流量 上千万</span>
+          <p>持续产出高曝光图文内容，熟悉平台推荐机制与内容节奏。</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section-tint" id="xp">
+      <div class="section-head reveal">
+        <p class="eyebrow">Experience II</p>
+        <h2>项目经验</h2>
+        <p>从任务接广到广告代理，再到拉新项目矩阵。</p>
+      </div>
+      <div class="xp-grid">
+        <article class="xp-card reveal">
+          <span class="xp-icon">📣</span>
+          <h3>平台任务接广</h3>
+          <p>承接平台任务与广告投放，熟悉各类任务规则与收益模型。</p>
+        </article>
+        <article class="xp-card reveal">
+          <span class="xp-icon">👥</span>
+          <h3>广告代理</h3>
+          <p>曾管理 100+ 直属人员，累计业绩 30w，擅长团队运营与激励。</p>
+        </article>
+        <article class="xp-card reveal">
+          <span class="xp-icon">🚀</span>
+          <h3>拉新项目</h3>
+          <p>覆盖电视剧、漫画、游戏、教育资源等领域，持续扩量中。</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="works">
+      <div class="section-head reveal">
+        <p class="eyebrow">Works</p>
+        <h2>作品案例</h2>
+        <p>这里放你的作品截图、案例链接与成果数据（当前为示例占位）。</p>
+      </div>
+      <div class="work-grid">
+        <article class="work-card reveal">
+          <div class="work-media wm-1">🖼️</div>
+          <div class="work-body">
+            <h3>作品案例 一</h3>
+            <p>待补充：放上你的作品图片和简介。</p>
+          </div>
+        </article>
+        <article class="work-card reveal">
+          <div class="work-media wm-2">🚀</div>
+          <div class="work-body">
+            <h3>作品案例 二</h3>
+            <p>待补充：放上你的作品图片和简介。</p>
+          </div>
+        </article>
+        <article class="work-card reveal">
+          <div class="work-media wm-3">🎯</div>
+          <div class="work-body">
+            <h3>作品案例 三</h3>
+            <p>待补充：放上你的作品图片和简介。</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="resources">
+      <div class="section-head reveal">
+        <p class="eyebrow">Resources</p>
+        <h2>AI 资源精选</h2>
+        <p>我亲自筛选过的好用资源，持续更新。</p>
+      </div>
+      <div class="resource-grid">
+        <a class="resource reveal" href="#">
+          <span class="resource-icon r1">C</span>
+          <span class="resource-body"><strong>ChatGPT</strong><small>全球最流行的 AI 对话助手。</small></span>
+        </a>
+        <a class="resource reveal" href="#">
+          <span class="resource-icon r2">C</span>
+          <span class="resource-body"><strong>Claude</strong><small>长文档阅读与编程利器。</small></span>
+        </a>
+        <a class="resource reveal" href="#">
+          <span class="resource-icon r3">M</span>
+          <span class="resource-body"><strong>Midjourney</strong><small>高品质 AI 绘图工具。</small></span>
+        </a>
+        <a class="resource reveal" href="#">
+          <span class="resource-icon r4">HF</span>
+          <span class="resource-body"><strong>Hugging Face</strong><small>开源模型与数据集大本营。</small></span>
+        </a>
+        <a class="resource reveal" href="#">
+          <span class="resource-icon r5">GH</span>
+          <span class="resource-body"><strong>GitHub</strong><small>万千 AI 开源项目聚集地。</small></span>
+        </a>
+        <a class="resource reveal" href="#">
+          <span class="resource-icon r6">P</span>
+          <span class="resource-body"><strong>提示词手册</strong><small>写好 Prompt 的必备清单。</small></span>
+        </a>
+      </div>
+    </section>
+
+    <section class="section" id="about">
+      <div class="about-card reveal">
+        <div class="about-art">
+          <img src="images/avatar-v2.svg" alt="弈勇插画头像">
+        </div>
+        <div class="about-copy">
+          <p class="eyebrow">About</p>
+          <h2>关于我</h2>
+          <p>我是弈勇，一名高中生，正在做 AI 资源项目开发。做过流量上亿的图文内容，也带过百人团队，现在专注拉新项目与 AI 资源整合。</p>
+          <div class="skills">
+            <span>图文内容</span>
+            <span>任务接广</span>
+            <span>广告代理</span>
+            <span>拉新项目</span>
+            <span>AI 资源</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <p>© 2026 弈勇 · AI 资源站</p>
+    <p class="footer-links">
+      <a href="#">快手</a>
+      <a href="#">抖音</a>
+      <a href="#">小红书</a>
+      <a href="#">QQ</a>
+    </p>
+  </footer>
+
+<!-- hero orbit styles -->
+  <style>
+    .hero-inner{display:block;text-align:center;}
+    .hero-inner{z-index:2;}
+    .hero-stats{z-index:2;}
+    .hero-orb{position:absolute;border-radius:50%;filter:blur(70px);opacity:.55;pointer-events:none;animation:orbFloat 14s ease-in-out infinite;}
+    .hero-orb-1{width:360px;height:360px;background:rgba(var(--rgb-1),.38);top:10%;left:6%;}
+    .hero-orb-2{width:320px;height:320px;background:rgba(var(--rgb-2),.30);bottom:8%;right:8%;animation-delay:-5s;}
+    .hero-orb-3{width:280px;height:280px;background:rgba(var(--rgb-3),.26);top:44%;left:40%;animation-delay:-9s;}
+    #techBgGlobal{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:-1;}
+    #grainGlobal{position:fixed;inset:-10%;pointer-events:none;z-index:-1;opacity:.035;background-image:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix type='saturate' values='0'/></filter><rect width='180' height='180' filter='url(%23n)'/></svg>");animation:grainShift .8s steps(1) infinite;}
+    #nebula3d{position:absolute;left:50%;top:50%;width:min(760px,94vw);aspect-ratio:1/1;transform:translate(-50%,-50%);pointer-events:none;z-index:0;}
+    #nebula3d canvas{display:block;width:100%;height:100%;}
+    .hero-rings{position:absolute;inset:0;perspective:900px;pointer-events:none;z-index:0;}
+    .hero-ring{position:absolute;left:50%;top:50%;border-radius:50%;border:1px solid rgba(var(--rgb-1),.35);box-shadow:0 0 22px rgba(var(--rgb-1),.14),inset 0 0 22px rgba(var(--rgb-1),.10);transform-style:preserve-3d;}
+    .hero-ring-a{width:min(780px,94vw);height:min(780px,94vw);transform:translate(-50%,-50%) rotateX(68deg) rotateZ(0deg);animation:ringSpinA 26s linear infinite;}
+    .hero-ring-b{width:min(620px,80vw);height:min(620px,80vw);border-color:rgba(var(--rgb-2),.32);box-shadow:0 0 22px rgba(var(--rgb-2),.14),inset 0 0 22px rgba(var(--rgb-2),.10);transform:translate(-50%,-50%) rotateX(68deg) rotateZ(0deg);animation:ringSpinB 20s linear infinite;}
+    .hero-scan{position:absolute;left:0;right:0;top:0;height:36%;pointer-events:none;z-index:0;background:linear-gradient(to bottom,transparent,rgba(var(--rgb-1),.08),rgba(var(--rgb-2),.12),transparent);filter:blur(3px);animation:scanMove 8s linear infinite;}
+    @keyframes orbFloat{0%,100%{transform:translate3d(0,0,0) scale(1);}50%{transform:translate3d(28px,-22px,0) scale(1.12);}}
+    @keyframes grainShift{0%{transform:translate(0,0);}10%{transform:translate(-2%,-3%);}20%{transform:translate(3%,-1%);}30%{transform:translate(-3%,2%);}40%{transform:translate(2%,3%);}50%{transform:translate(-1%,2%);}60%{transform:translate(3%,1%);}70%{transform:translate(-2%,-2%);}80%{transform:translate(1%,3%);}90%{transform:translate(-3%,1%);}100%{transform:translate(2%,-2%);}}
+    @keyframes ringSpinA{to{transform:translate(-50%,-50%) rotateX(68deg) rotateZ(360deg);}}
+    @keyframes ringSpinB{to{transform:translate(-50%,-50%) rotateX(68deg) rotateZ(-360deg);}}
+    @keyframes scanMove{0%{transform:translateY(-120%);}100%{transform:translateY(320%);}}
+    .hero-orbit{position:relative;width:min(680px,94vw);aspect-ratio:1/1;margin:0 auto;}
+    .hero-orbit-center{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:44%;text-align:center;z-index:2;}
+    .hero-orbit-center h1{font-size:clamp(26px,3.4vw,42px);margin:0 0 12px;}
+    .hero-orbit-center .lead{font-size:clamp(13px,1.35vw,15px);margin:0 auto 18px;}
+    .hero-orbit-center .hero-actions{gap:10px;}
+    .hero-orbit-center .btn{padding:8px 16px;font-size:13px;}
+    .hero-orbit-item{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:110px;height:110px;border-radius:50%;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;line-height:1.25;padding:8px;box-sizing:border-box;background:var(--surface);border:1.5px solid var(--indigo);color:var(--ink);font-size:14px;text-decoration:none;box-shadow:0 0 14px rgba(var(--rgb-3),.32),0 8px 24px rgba(0,0,0,.28);text-shadow:0 0 8px rgba(var(--rgb-3),.45);z-index:1;transition:transform .2s,background .2s,color .2s,box-shadow .2s,text-shadow .2s;}
+    .hero-orbit-item:hover{background:linear-gradient(135deg,var(--indigo),var(--pink));color:#fff;box-shadow:0 0 24px rgba(var(--rgb-3),.7),0 0 48px rgba(var(--rgb-2),.35);text-shadow:0 0 10px rgba(255,255,255,.85);}
+    .hero-orbit-pop{position:fixed;z-index:10000;width:242px;background:var(--surface);color:var(--ink);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);padding:14px;font-size:13px;animation:tkPopIn .25s ease-out;}
+    .hero-orbit-pop .pop-tag{display:inline-block;font-size:11px;color:var(--indigo);border:1px solid var(--indigo);border-radius:999px;padding:2px 8px;margin-bottom:6px;}
+    .hero-orbit-pop .pop-title{display:block;font-size:15px;margin:0 0 6px;}
+    .hero-orbit-pop .pop-desc{margin:0 0 10px;color:var(--ink-2);line-height:1.5;}
+    .hero-orbit-pop .pop-link{color:var(--indigo);text-decoration:none;font-weight:600;}
+    .hero-orbit-pop .pop-close{position:absolute;top:6px;right:8px;background:none;border:none;color:var(--muted);font-size:16px;line-height:1;cursor:pointer;padding:4px;}
+    .hero-orbit-pop .pop-res{margin:0 0 10px;padding-left:18px;font-size:12px;color:var(--ink-2);line-height:1.9;}
+    .hero-orbit-item.tk-pop-out{animation:tkPopOut .28s ease-in forwards;}
+    .hero-orbit-item.tk-back{animation:tkPopIn2 .3s ease-out;}
+    .tk-shock{position:fixed;width:44px;height:44px;border-radius:50%;border:2px solid rgba(var(--rgb-3),.9);pointer-events:none;z-index:9998;animation:tkShock .6s ease-out forwards;}
+    .tk-shock.tk-shock2{border-color:rgba(var(--rgb-2),.85);animation-delay:.08s;}
+    @keyframes tkPopIn{from{transform:scale(.5);opacity:0;}to{transform:scale(1);opacity:1;}}
+    @keyframes tkPopOut{to{transform:translate(-50%,-50%) scale(0);opacity:0;}}
+    @keyframes tkPopIn2{from{transform:translate(-50%,-50%) scale(0);opacity:0;}to{transform:translate(-50%,-50%) scale(1);opacity:1;}}
+    @keyframes tkShock{0%{transform:translate(-50%,-50%) scale(.2);opacity:.9;}100%{transform:translate(-50%,-50%) scale(3.2);opacity:0;}}
+    @media (max-width:640px){
+      .hero-orbit{width:96vw;}
+      .hero-orbit-center{width:56%;}
+      .hero-orbit-center h1{font-size:24px;}
+      .hero-orbit-center .lead{font-size:12px;}
+      .hero-orbit-item{width:88px;height:88px;font-size:12px;padding:6px;}
+    }
+  </style>
+  <div class="hero-orbit-pop" id="heroOrbitPop" hidden>
+    <span class="pop-tag" id="popTag"></span>
+    <strong class="pop-title" id="popTitle"></strong>
+    <p class="pop-desc" id="popDesc"></p>
+    <ul class="pop-res" id="popRes"></ul>
+    <button class="pop-close" id="popClose" type="button" aria-label="关闭">×</button>
+    <a class="pop-link" id="popLink" href="#projects">查看项目 →</a>
+  </div>
+<!-- floating content navigation widget -->
+  <style>
+    .msg-widget{position:fixed;left:16px;top:72px;z-index:9999;font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;}
+    .msg-btn{width:52px;height:52px;border-radius:50%;background:linear-gradient(135deg,var(--indigo),var(--pink));color:#fff;border:none;font-size:22px;cursor:pointer;box-shadow:0 6px 20px rgba(var(--rgb-1),.4);display:flex;align-items:center;justify-content:center;transition:transform .15s;}
+    .msg-btn:hover{transform:scale(1.06);}
+    .msg-panel{display:none;position:absolute;left:0;top:64px;width:300px;max-width:calc(100vw - 32px);background:var(--surface);color:var(--ink);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);overflow:hidden;}
+    .msg-panel.open{display:block;}
+    .msg-head{position:relative;background:linear-gradient(135deg,var(--indigo),var(--pink));color:#fff;padding:14px 16px;font-weight:700;font-size:15px;}
+    .msg-close{position:absolute;top:10px;right:12px;background:none;border:none;color:#fff;font-size:20px;line-height:1;cursor:pointer;padding:0;}
+    .msg-back{position:absolute;top:12px;left:12px;background:none;border:none;color:#fff;font-size:14px;cursor:pointer;padding:0;}
+    .msg-menu-list{padding:8px;}
+    .msg-menu-item{display:block;width:100%;text-align:left;background:none;border:none;color:var(--ink);padding:11px 12px;font-size:15px;cursor:pointer;border-radius:10px;font-family:inherit;}
+    .msg-menu-item:hover{background:var(--bg);color:var(--indigo);}
+    .msg-menu-item .dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:10px;background:linear-gradient(135deg,var(--indigo),var(--pink));}
+    .msg-body{padding:14px 16px;}
+    .msg-body label{display:block;font-size:12px;color:var(--ink-2);margin:10px 0 4px;}
+    .msg-body input,.msg-body textarea{width:100%;box-sizing:border-box;border:1px solid var(--line);border-radius:8px;padding:8px 10px;font-size:14px;font-family:inherit;color:var(--ink);background:var(--bg);outline:none;}
+    .msg-body input:focus,.msg-body textarea:focus{border-color:var(--indigo);}
+    .msg-body textarea{min-height:88px;resize:vertical;}
+    .msg-submit{width:100%;margin-top:14px;background:linear-gradient(135deg,var(--indigo),var(--pink));color:#fff;border:none;border-radius:8px;padding:10px;font-size:15px;cursor:pointer;}
+    .msg-status{font-size:13px;color:var(--green);margin:10px 0 0;text-align:center;}
+    .msg-status.error{color:#dc2626;}
+    .msg-contact{border-bottom:1px solid var(--line);}
+    .msg-contact-label{font-size:12px;color:var(--ink-2);font-weight:600;}
+    .msg-qq-line{display:flex;align-items:center;gap:8px;margin:8px 0 0;}
+    .msg-qq-line span{font-size:13px;color:var(--ink-2);}
+    .msg-qq-line strong{font-size:16px;color:var(--ink);}
+    .msg-qq-btn{margin-top:8px;width:100%;background:transparent;border:1px solid var(--indigo);color:var(--indigo);border-radius:8px;padding:7px;font-size:13px;cursor:pointer;}
+    .msg-qq-btn:hover{background:var(--indigo);color:#fff;}
+    .msg-contact-divider{height:1px;background:var(--line);margin:12px 0 0;}
+  </style>
+  <div class="msg-widget" id="msgWidget">
+    <button class="msg-btn" id="msgToggle" type="button" aria-label="浏览内容" title="浏览内容">☰</button>
+    <div class="msg-panel" id="msgPanel">
+      <div id="msgMenu">
+        <div class="msg-head">浏览内容
+          <button class="msg-close" type="button" aria-label="关闭">×</button>
+        </div>
+        <div class="msg-menu-list">
+          <button class="msg-menu-item" data-go="tool" type="button"><span class="dot"></span>工具</button>
+          <button class="msg-menu-item" data-go="app" type="button"><span class="dot"></span>应用</button>
+          <button class="msg-menu-item" data-go="open" type="button"><span class="dot"></span>开源</button>
+          <button class="msg-menu-item" data-go="about" type="button"><span class="dot"></span>个人介绍</button>
+          <button class="msg-menu-item" data-go="works" type="button"><span class="dot"></span>作品展示</button>
+          <button class="msg-menu-item" data-go="contact" type="button"><span class="dot"></span>联系方式</button>
+        </div>
+      </div>
+      <div id="msgContactView" style="display:none;">
+        <div class="msg-head">联系方式
+          <button class="msg-back" id="msgBack" type="button">‹ 返回</button>
+          <button class="msg-close" type="button" aria-label="关闭">×</button>
+        </div>
+        <div class="msg-body msg-contact">
+          <div class="msg-contact-label">联系方式（点按钮获取）</div>
+          <div class="msg-qq-line">
+            <span>QQ</span>
+            <strong id="msgQqMask">点击下方按钮获取</strong>
+            <strong id="msgQqNumber" style="display:none;">2092307480</strong>
+          </div>
+          <button class="msg-qq-btn" id="msgQqBtn" type="button">点击获取 QQ 号码</button>
+          <div class="msg-contact-divider"></div>
+        </div>
+        <form class="msg-body" id="msgForm" name="contact" method="POST">
+          <p style="display:none;"><label>请不要填写这个字段：<input name="_honey"></label></p>
+          <label for="msgName">怎么称呼你</label>
+          <input id="msgName" name="name" type="text" required placeholder="你的称呼">
+          <label for="msgContact">联系方式（微信 / QQ / 邮箱）</label>
+          <input id="msgContact" name="contact" type="text" required placeholder="方便我回复你">
+          <label for="msgMessage">留言内容</label>
+          <textarea id="msgMessage" name="message" required placeholder="想聊点什么？"></textarea>
+          <button class="msg-submit" type="submit">发送留言</button>
+          <p class="msg-status" id="msgStatus"></p>
+        </form>
+      </div>
+    </div>
+  </div>
+  <script>
+    (function () {
+      var btn = document.getElementById('msgToggle');
+      var panel = document.getElementById('msgPanel');
+      var menu = document.getElementById('msgMenu');
+      var contactView = document.getElementById('msgContactView');
+      var back = document.getElementById('msgBack');
+      var form = document.getElementById('msgForm');
+      var status = document.getElementById('msgStatus');
+      var qqBtn = document.getElementById('msgQqBtn');
+      var qqMask = document.getElementById('msgQqMask');
+      var qqNum = document.getElementById('msgQqNumber');
+      function closePanel() { panel.classList.remove('open'); }
+      function openPanel(view) {
+        if (view === 'contact') { menu.style.display = 'none'; contactView.style.display = ''; }
+        else { menu.style.display = ''; contactView.style.display = 'none'; }
+        panel.classList.add('open');
+      }
+      function togglePanel() { if (panel.classList.contains('open')) { closePanel(); } else { openPanel('menu'); } }
+      btn.addEventListener('click', togglePanel);
+      document.querySelectorAll('.msg-close').forEach(function (b) { b.addEventListener('click', closePanel); });
+      back.addEventListener('click', function () { openPanel('menu'); });
+      document.querySelectorAll('.msg-menu-item').forEach(function (item) {
+        item.addEventListener('click', function () {
+          var go = item.getAttribute('data-go');
+          if (go === 'contact') { openPanel('contact'); return; }
+          closePanel();
+          if (go === 'tool' || go === 'app' || go === 'open') {
+            var sec = document.getElementById('projects');
+            if (sec) sec.scrollIntoView({ behavior: 'smooth' });
+            var chip = document.querySelector('.chip[data-filter="' + go + '"]');
+            if (chip) chip.click();
+          } else if (go === 'about') {
+            var a = document.getElementById('about');
+            if (a) a.scrollIntoView({ behavior: 'smooth' });
+          } else if (go === 'works') {
+            var w = document.getElementById('works');
+            if (w) w.scrollIntoView({ behavior: 'smooth' });
+          }
+        });
+      });
+      document.querySelectorAll('a[href="#contact"]').forEach(function (a) {
+        a.addEventListener('click', function (e) { e.preventDefault(); openPanel('contact'); });
+      });
+      if (qqBtn) qqBtn.addEventListener('click', async function () {
+        var qq = qqNum.textContent.trim();
+        if (qqMask) qqMask.style.display = 'none';
+        qqNum.style.display = '';
+        try {
+          await navigator.clipboard.writeText(qq);
+          qqBtn.textContent = '已获取，点击可再次复制';
+        } catch (e) {
+          qqBtn.textContent = '已获取：' + qq;
+        }
+      });
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        status.className = 'msg-status';
+        status.textContent = '发送中…';
+        var data = {
+          _subject: '网站新留言：' + (form.name.value || ''),
+          _template: 'table',
+          _captcha: 'false',
+          name: form.name.value,
+          contact: form.contact.value,
+          message: form.message.value,
+          _honey: form._honey.value
+        };
+        fetch('https://formsubmit.co/ajax/2092307480@qq.com', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', Accept: 'application/json', 'X-Requested-With': 'XMLHttpRequest' },
+          body: JSON.stringify(data)
+        })
+          .then(function (r) { return r.json().then(function (j) { return { ok: r.ok, j: j }; }); })
+          .then(function (res) {
+            if (res.ok && (String(res.j.success) === 'true' || res.j.success === true)) {
+              status.className = 'msg-status';
+              status.textContent = '留言已发送，我会尽快回复你！';
+              form.reset();
+            } else {
+              throw new Error('submit failed');
+            }
+          })
+          .catch(function () {
+            status.className = 'msg-status error';
+            status.textContent = '发送失败，请稍后再试。';
+          });
+      });
+    })();
+  </script>
+
+  <script src="products.js"></script>
+  <script>
+    (function () {
+      var data = window.SITE_PRODUCTS;
+      if (!data || !data.length) return;
+      var tagNames = { tool: '工具', app: '应用', open: '开源' };
+      var orbit = document.getElementById('heroOrbit');
+      var grid = document.getElementById('projectGrid');
+      if (orbit) {
+        var old = orbit.querySelectorAll('.hero-orbit-item');
+        for (var i = 0; i < old.length; i++) old[i].parentNode.removeChild(old[i]);
+        data.forEach(function (p) {
+          var a = document.createElement('a');
+          a.className = 'hero-orbit-item';
+          a.setAttribute('data-filter', p.tag || 'tool');
+          a.setAttribute('data-desc', p.desc || '');
+          a.setAttribute('data-resources', (p.resources || []).join('|'));
+          a.href = p.link || '#projects';
+          a.textContent = p.name || '';
+          orbit.appendChild(a);
+        });
+      }
+      if (grid) {
+        grid.innerHTML = '';
+        data.forEach(function (p) {
+          var img = p.img || 'images/project-1.svg';
+          var tag = tagNames[p.tag] || '工具';
+          var art = document.createElement('article');
+          art.className = 'card reveal';
+          art.setAttribute('data-tag', p.tag || 'tool');
+          art.innerHTML =
+            '<div class="card-media"><img src="' + img + '" alt="' + (p.name || '') + '" loading="lazy"></div>' +
+            '<div class="card-body"><span class="tag">' + tag + '</span>' +
+            '<h3>' + (p.name || '') + '</h3>' +
+            '<p>' + (p.desc || '') + '</p>' +
+            '<a class="card-link" href="' + (p.link || '#') + '">查看项目 →</a></div>';
+          grid.appendChild(art);
+        });
+      }
+    })();
+  </script>
+
+  <script>
+    (function () {
+      var orbit = document.getElementById('heroOrbit');
+      if (!orbit) return;
+      var items = orbit.querySelectorAll('.hero-orbit-item');
+      var n = items.length;
+      var radius = 45;
+      if (orbit.clientWidth <= 480) radius = 42;
+      var pop = document.getElementById('heroOrbitPop');
+      var popTag = document.getElementById('popTag');
+      var popTitle = document.getElementById('popTitle');
+      var popDesc = document.getElementById('popDesc');
+      var popLink = document.getElementById('popLink');
+      var popClose = document.getElementById('popClose');
+      var popRes = document.getElementById('popRes');
+      var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      var baseAngles = [];
+      var hovered = null;
+      var popOpen = false;
+      for (var i = 0; i < n; i++) baseAngles[i] = (i / n) * 2 * Math.PI - Math.PI / 2;
+      function layoutOrbit(t) {
+        var r = radius / 100;
+        for (var i = 0; i < n; i++) {
+          var item = items[i];
+          var angle = baseAngles[i] + t * 0.00016;
+          var x = Math.cos(angle) * r;
+          var y = Math.sin(angle) * r * 0.92;
+          var depth = Math.sin(angle);
+          var scale = 0.84 + 0.16 * (depth + 1) / 2;
+          if (item === hovered) scale *= 1.1;
+          var op = 0.7 + 0.3 * (depth + 1) / 2;
+          item.style.left = 'calc(50% + ' + (x * 100).toFixed(2) + '%)';
+          item.style.top = 'calc(50% + ' + (y * 100).toFixed(2) + '%)';
+          item.style.transform = 'translate(-50%,-50%) scale(' + scale.toFixed(3) + ')';
+          item.style.opacity = op.toFixed(2);
+          item.style.zIndex = String(3 + Math.round((depth + 1) * 5));
+        }
+      }
+      if (reduce) {
+        layoutOrbit(0);
+      } else {
+        (function orbitLoop(t) {
+          if (!popOpen) layoutOrbit(t);
+          requestAnimationFrame(orbitLoop);
+        })(0);
+      }
+      items.forEach(function (item) {
+        item.addEventListener('mouseenter', function () { hovered = item; });
+        item.addEventListener('mouseleave', function () { hovered = null; });
+      });
+      items.forEach(function (item) {
+        item.addEventListener('click', function (e) { e.preventDefault(); e.stopPropagation(); showPop(item); });
+      });
+      function spawnShock(item) {
+        var rect = item.getBoundingClientRect();
+        var cx = rect.left + rect.width / 2;
+        var cy = rect.top + rect.height / 2;
+        for (var k = 0; k < 2; k++) {
+          var ring = document.createElement('div');
+          ring.className = 'tk-shock' + (k === 1 ? ' tk-shock2' : '');
+          ring.style.left = cx + 'px';
+          ring.style.top = cy + 'px';
+          document.body.appendChild(ring);
+          (function (r) { setTimeout(function () { if (r.parentNode) r.parentNode.removeChild(r); }, 800); })(ring);
+        }
+      }
+      function showPop(item) {
+        if (!pop) return;
+        var prev = document.querySelector('.hero-orbit-item.tk-pop-out');
+        if (prev && prev !== item) {
+          prev.classList.remove('tk-pop-out');
+          prev.classList.add('tk-back');
+          setTimeout(function () { prev.classList.remove('tk-back'); }, 400);
+        }
+        var filter = item.getAttribute('data-filter') || 'all';
+        var tagText = filter === 'tool' ? '工具' : (filter === 'app' ? '应用' : '开源');
+        popTag.textContent = tagText;
+        popTitle.textContent = item.textContent.trim();
+        popDesc.textContent = item.getAttribute('data-desc') || '';
+        var res = (item.getAttribute('data-resources') || '').split('|').filter(function (s) { return s; });
+        popRes.innerHTML = '';
+        for (var i = 0; i < res.length; i++) {
+          var li = document.createElement('li');
+          li.textContent = res[i];
+          popRes.appendChild(li);
+        }
+        popLink.onclick = function () {
+          hidePop();
+          var chip = document.querySelector('.chip[data-filter="' + filter + '"]');
+          if (chip) chip.click();
+        };
+        if (!reduce) {
+          item.classList.add('tk-pop-out');
+          spawnShock(item);
+        }
+        popOpen = true;
+        pop.hidden = false;
+        var rect = item.getBoundingClientRect();
+        var left = rect.right + 12;
+        if (left + pop.offsetWidth > window.innerWidth - 8) left = rect.left - pop.offsetWidth - 12;
+        var top = rect.top + rect.height / 2 - pop.offsetHeight / 2;
+        top = Math.max(8, Math.min(top, window.innerHeight - pop.offsetHeight - 8));
+        pop.style.left = left + 'px';
+        pop.style.top = top + 'px';
+      }
+      function hidePop() {
+        if (!pop) return;
+        popOpen = false;
+        pop.hidden = true;
+        var active = document.querySelector('.hero-orbit-item.tk-pop-out');
+        if (active) {
+          active.classList.remove('tk-pop-out');
+          active.classList.add('tk-back');
+          setTimeout(function () { active.classList.remove('tk-back'); }, 400);
+        }
+      }
+      if (popClose) popClose.addEventListener('click', hidePop);
+      document.addEventListener('click', function (e) {
+        if (pop && !pop.hidden && !pop.contains(e.target) && !(e.target.closest && e.target.closest('.hero-orbit-item'))) hidePop();
+      });
+      window.addEventListener('scroll', hidePop, { passive: true });
+    })();
+  </script>
+
+  <script>
+    (function () {
+      var canvas = document.getElementById('techBgGlobal');
+      if (!canvas || !canvas.getContext) return;
+      var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      var ctx = canvas.getContext('2d');
+      var W = 0, H = 0, particles = [];
+      function accentRGB() {
+        var cs = getComputedStyle(document.documentElement);
+        function v(n) { var s = cs.getPropertyValue(n); return (s || '').trim(); }
+        return [v('--rgb-1') || '99,102,241', v('--rgb-2') || '236,72,153', v('--rgb-3') || '6,182,212'];
+      }
+      var colors = accentRGB();
+      var lineRGB = (function () { var s = getComputedStyle(document.documentElement).getPropertyValue('--rgb-line'); return (s || '').trim() || '120,140,255'; })();
+      function resize() {
+        W = window.innerWidth;
+        H = window.innerHeight;
+        var dpr = Math.min(window.devicePixelRatio || 1, 2);
+        canvas.width = W * dpr;
+        canvas.height = H * dpr;
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      }
+      function init() {
+        particles = [];
+        var count = Math.max(55, Math.min(110, Math.floor(window.innerWidth / 11)));
+        for (var i = 0; i < count; i++) {
+          var ang = Math.random() * Math.PI * 2;
+          var spd = 0.35 + Math.random() * 0.2;
+          particles.push({
+            x: Math.random() * W,
+            y: Math.random() * H,
+            vx: Math.cos(ang) * spd,
+            vy: Math.sin(ang) * spd,
+            r: Math.random() * 3 + 1.5,
+            phase: Math.random() * Math.PI * 2,
+            tw: 0.04 + Math.random() * 0.08
+          });
+        }
+      }
+      var frame = 0;
+      function step() {
+        frame++;
+        ctx.clearRect(0, 0, W, H);
+        for (var i = 0; i < particles.length; i++) {
+          var p = particles[i];
+          p.x += p.vx;
+          p.y += p.vy;
+          if (p.x < 0 || p.x > W) p.vx *= -1;
+          if (p.y < 0 || p.y > H) p.vy *= -1;
+          var flick = 0.5 + 0.5 * Math.sin(frame * p.tw + p.phase);
+          var a = (0.3 + 0.55 * flick).toFixed(3);
+          ctx.beginPath();
+          ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+          ctx.shadowBlur = 4 + 5 * flick;
+          ctx.shadowColor = 'rgba(' + colors[i % 3] + ',0.9)';
+          ctx.fillStyle = 'rgba(' + colors[i % 3] + ',' + a + ')';
+          ctx.fill();
+        }
+        ctx.shadowBlur = 0;
+        for (var i = 0; i < particles.length; i++) {
+          var a = particles[i];
+          for (var j = i + 1; j < particles.length; j++) {
+            var b = particles[j];
+            var dx = a.x - b.x;
+            var dy = a.y - b.y;
+            var dist = Math.sqrt(dx * dx + dy * dy);
+            if (dist < 140) {
+              ctx.beginPath();
+              ctx.moveTo(a.x, a.y);
+              ctx.lineTo(b.x, b.y);
+              ctx.strokeStyle = 'rgba(' + lineRGB + ',' + (0.24 * (1 - dist / 140)).toFixed(3) + ')';
+              ctx.lineWidth = 1;
+              ctx.stroke();
+            }
+          }
+        }
+        if (!reduce) requestAnimationFrame(step);
+      }
+      resize();
+      init();
+      if (reduce) step(); else requestAnimationFrame(step);
+      window.addEventListener('resize', function () { resize(); init(); });
+    })();
+  </script>
+
+  <script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
+  <script>
+    (function () {
+      var el = document.getElementById('nebula3d');
+      if (!el || !window.THREE) return;
+      var T = window.THREE;
+      var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      var renderer;
+      try { renderer = new T.WebGLRenderer({ antialias: true, alpha: true }); } catch (e) { return; }
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+      renderer.setClearColor(0x000000, 0);
+      el.appendChild(renderer.domElement);
+      var scene = new T.Scene();
+      var camera = new T.PerspectiveCamera(50, 1, 0.1, 100);
+      camera.position.set(0, 0, 3.3);
+      var n = 520;
+      var pos = new Float32Array(n * 3);
+      var col = new Float32Array(n * 3);
+      function hexPalette() {
+        var cs = getComputedStyle(document.documentElement);
+        function rgb(n) {
+          var str = (cs.getPropertyValue(n) || '').trim();
+          if (!str) return null;
+          var p = str.split(',');
+          return [p[0] / 255, p[1] / 255, p[2] / 255];
+        }
+        var a = rgb('--rgb-1'), b = rgb('--rgb-2'), c = rgb('--rgb-3');
+        a = a || [0.51, 0.55, 0.97]; b = b || [0.96, 0.45, 0.71]; c = c || [0.42, 0.63, 1];
+        return [a, b, c, a];
+      }
+      var palette = hexPalette();
+      for (var i = 0; i < n; i++) {
+        var r = 1.4 + (Math.random() - 0.5) * 1.0;
+        var theta = Math.random() * Math.PI * 2;
+        var phi = Math.acos(2 * Math.random() - 1);
+        pos[i * 3] = r * Math.sin(phi) * Math.cos(theta);
+        pos[i * 3 + 1] = r * Math.sin(phi) * Math.sin(theta);
+        pos[i * 3 + 2] = r * Math.cos(phi);
+        var c = palette[i % 4];
+        col[i * 3] = c[0];
+        col[i * 3 + 1] = c[1];
+        col[i * 3 + 2] = c[2];
+      }
+      var geo = new T.BufferGeometry();
+      geo.setAttribute('position', new T.BufferAttribute(pos, 3));
+      geo.setAttribute('color', new T.BufferAttribute(col, 3));
+      var mat = new T.PointsMaterial({ size: 0.06, vertexColors: true, transparent: true, opacity: 0.9, sizeAttenuation: true, depthWrite: false });
+      var points = new T.Points(geo, mat);
+      scene.add(points);
+      function resize() {
+        var w = el.clientWidth || 300;
+        var h = el.clientHeight || 300;
+        renderer.setSize(w, h, false);
+        camera.aspect = w / h;
+        camera.updateProjectionMatrix();
+      }
+      resize();
+      if (window.ResizeObserver) new ResizeObserver(resize).observe(el);
+      if (reduce) {
+        points.rotation.y = 0.6;
+        points.rotation.x = 0.25;
+        renderer.render(scene, camera);
+        return;
+      }
+      function frame(t) {
+        requestAnimationFrame(frame);
+        points.rotation.y = t * 0.00018;
+        points.rotation.x = Math.sin(t * 0.0001) * 0.18;
+        renderer.render(scene, camera);
+      }
+      requestAnimationFrame(frame);
+    })();
+  </script>
+
+  <script src="js/app.js"></script>
+</body>
+</html>

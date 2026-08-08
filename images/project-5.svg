@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 560">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#f59e0b"/>
+      <stop offset="1" stop-color="#e11d48"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="560" fill="url(#g)"/>
+  <g transform="translate(210 90)">
+    <rect width="380" height="220" rx="24" fill="#ffffff" opacity="0.92"/>
+    <circle cx="190" cy="110" r="56" fill="#e11d48"/>
+    <path d="M172 84 L222 110 L172 136z" fill="#ffffff"/>
+    <rect x="20" y="188" width="120" height="12" rx="6" fill="#fda4af"/>
+    <rect x="20" y="162" width="160" height="12" rx="6" fill="#fb7185"/>
+  </g>
+  <g transform="translate(210 350)">
+    <rect width="380" height="130" rx="22" fill="#ffffff" opacity="0.82"/>
+    <rect x="24" y="26" width="150" height="12" rx="6" fill="#fdba74"/>
+    <rect x="24" y="54" width="220" height="12" rx="6" fill="#fed7aa"/>
+    <rect x="24" y="82" width="120" height="12" rx="6" fill="#fed7aa"/>
+    <rect x="300" y="24" width="56" height="56" rx="14" fill="#f59e0b"/>
+    <path d="M318 40 L348 52 L318 64z" fill="#ffffff"/>
+  </g>
+</svg>
