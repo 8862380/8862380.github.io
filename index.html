@@ -628,7 +628,20 @@
         item.addEventListener('mouseleave', function () { hovered = null; });
       });
       items.forEach(function (item) {
-        item.addEventListener('click', function (e) { e.preventDefault(); e.stopPropagation(); showPop(item); });
+        item.addEventListener('click', function (e) {
+          e.preventDefault();
+          e.stopPropagation();
+          spawnShock(item);
+          var href = item.getAttribute('href') || '';
+          if (href && href !== '#' && href !== '#projects') {
+            window.open(href, '_blank', 'noopener');
+          } else {
+            var chip = document.querySelector('.chip[data-filter="' + (item.getAttribute('data-filter') || 'all') + '"]');
+            if (chip) chip.click();
+            var sec = document.getElementById('projects');
+            if (sec) sec.scrollIntoView({ behavior: 'smooth' });
+          }
+        });
       });
       function spawnShock(item) {
         var rect = item.getBoundingClientRect();
