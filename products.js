@@ -101,39 +101,42 @@ window.SITE_PRODUCTS = [
     "name": "平台任务接广",
     "tag": "tool",
     "img": "images/project-9.svg",
-    "desc": "接广告任务、平台任务变现，正规渠道赚收益，玩法持续更新。",
+    "desc": "接广告任务、平台任务变现，正规渠道赚收益。想咨询合作，点击直接联系 QQ：2092307480。",
     "resources": [
       "广告任务对接",
       "平台任务执行",
       "收益结算",
-      "玩法教学"
+      "玩法教学",
+      "联系QQ：2092307480"
     ],
-    "link": "#projects"
+    "link": "https://wpa.qq.com/msgrd?v=3&uin=2092307480&site=qq&menu=yes"
   },
   {
     "name": "广告代理",
     "tag": "tool",
     "img": "images/project-10.svg",
-    "desc": "对接广告主与流量主，赚取广告差价与佣金。",
+    "desc": "对接广告主与流量主，赚取广告差价与佣金。想咨询合作，点击直接联系 QQ：2092307480。",
     "resources": [
       "广告主资源",
       "投放策略",
       "佣金结算",
-      "渠道管理"
+      "渠道管理",
+      "联系QQ：2092307480"
     ],
-    "link": "#projects"
+    "link": "https://wpa.qq.com/msgrd?v=3&uin=2092307480&site=qq&menu=yes"
   },
   {
     "name": "拉新项目",
     "tag": "tool",
     "img": "images/project-11.svg",
-    "desc": "平台拉新任务，邀请注册赚奖励，持续更新。",
+    "desc": "平台拉新任务，邀请注册赚奖励，持续更新。想咨询合作，点击直接联系 QQ：2092307480。",
     "resources": [
       "拉新任务",
       "邀请渠道",
       "奖励结算",
-      "操作教程"
+      "操作教程",
+      "联系QQ：2092307480"
     ],
-    "link": "#projects"
+    "link": "https://wpa.qq.com/msgrd?v=3&uin=2092307480&site=qq&menu=yes"
   }
 ];
