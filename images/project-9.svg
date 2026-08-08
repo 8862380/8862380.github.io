@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 560">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#d4af37"/>
+      <stop offset="1" stop-color="#b91c1c"/>
+    </linearGradient>
+  </defs>
+  <rect width="800" height="560" fill="url(#g)"/>
+  <g opacity="0.12" stroke="#ffffff" stroke-width="2">
+    <line x1="0" y1="120" x2="800" y2="120"/><line x1="0" y1="240" x2="800" y2="240"/>
+    <line x1="0" y1="360" x2="800" y2="360"/><line x1="0" y1="480" x2="800" y2="480"/>
+  </g>
+  <g transform="translate(210 78)">
+    <rect width="380" height="300" rx="26" fill="#ffffff" opacity="0.94"/>
+    <circle cx="190" cy="112" r="64" fill="#b91c1c"/>
+    <path d="M152 78 L236 112 L152 146z" fill="#ffffff"/>
+    <path d="M152 78 L190 100 L190 124 L152 146z" fill="#f5d97a" opacity="0.5"/>
+    <rect x="228" y="98" width="40" height="12" rx="6" fill="#f5d97a"/>
+    <rect x="228" y="120" width="28" height="10" rx="5" fill="#fde68a" opacity="0.85"/>
+    <circle cx="120" cy="190" r="24" fill="#d4af37"/>
+    <circle cx="190" cy="198" r="24" fill="#f59e0b"/>
+    <circle cx="260" cy="190" r="24" fill="#d4af37"/>
+    <text x="120" y="196" font-size="24" font-weight="700" fill="#ffffff" text-anchor="middle" font-family="Arial">¥</text>
+    <text x="190" y="204" font-size="24" font-weight="700" fill="#ffffff" text-anchor="middle" font-family="Arial">¥</text>
+    <text x="260" y="196" font-size="24" font-weight="700" fill="#ffffff" text-anchor="middle" font-family="Arial">¥</text>
+    <rect x="42" y="250" width="120" height="12" rx="6" fill="#fca5a5"/>
+    <rect x="42" y="274" width="160" height="12" rx="6" fill="#fecaca"/>
+  </g>
+  <g fill="#ffffff">
+    <circle cx="140" cy="90" r="6"/><circle cx="176" cy="60" r="3"/><circle cx="668" cy="110" r="5"/>
+    <circle cx="696" cy="150" r="3"/><circle cx="660" cy="440" r="5"/><circle cx="120" cy="470" r="4"/>
+  </g>
+</svg>

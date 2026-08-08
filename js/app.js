@@ -48,14 +48,14 @@ navLinks.querySelectorAll('a').forEach((a) => {
 /* 主题切换 */
 const themeBtn = $('themeToggle');
 const THEME_ORDER = [
-  { key: 'royal', label: '??' },
-  { key: 'light', label: '??' },
-  { key: 'calm', label: '??' },
-  { key: 'dark', label: '??' },
-  { key: 'apple', label: '??' },
-  { key: 'business', label: '??' },
-  { key: 'ocean', label: '??' },
-  { key: 'tech', label: '??' },
+  { key: 'royal', label: '红金' },
+  { key: 'light', label: '明亮' },
+  { key: 'calm', label: '沉稳' },
+  { key: 'dark', label: '深色' },
+  { key: 'apple', label: '苹果' },
+  { key: 'business', label: '商务' },
+  { key: 'ocean', label: '海蓝' },
+  { key: 'tech', label: '科技' },
 ];
 const THEME_SWATCH = {
   royal: ['#d4af37', '#dc2626'],
@@ -73,7 +73,7 @@ const savedTheme = lsGet('siteTheme');
 let currentTheme = (THEME_KEYS.indexOf(savedTheme) > -1) ? savedTheme : (document.documentElement.dataset.theme || 'royal');
 const applyTheme = () => {
   document.documentElement.dataset.theme = currentTheme;
-  themeBtn.textContent = '??';
+  themeBtn.textContent = '主题';
   var items = document.querySelectorAll('.theme-item');
   for (var i = 0; i < items.length; i++) {
     items[i].classList.toggle('current', items[i].getAttribute('data-key') === currentTheme);

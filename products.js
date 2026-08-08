@@ -96,18 +96,44 @@ window.SITE_PRODUCTS = [
     ],
     "link": "https://www.deeplearning.ai/"
   },
+
   {
-    "name": "快手流量玩分享",
+    "name": "平台任务接广",
     "tag": "tool",
-    "img": "images/project-3.svg",
-    "desc": "拆解快手推荐机制、账号定位、爆款选题、封面标题技巧，兼顾公域推流与粉丝私域沉淀，提供可直接照搬实操方法，避开新手踩坑，零基础也能掌握获取流量的路径。",
+    "img": "images/project-9.svg",
+    "desc": "接广告任务、平台任务变现，正规渠道赚收益，玩法持续更新。",
     "resources": [
-      "拆解快手流量底层逻辑",
-      "包含爆款选题、封面文案、短视频投放、私域涨粉全套实操",
-      "附带可直接套用模板",
-      "避开新手限流误区",
-      "零基础也能快速拿到播放流量"
+      "广告任务对接",
+      "平台任务执行",
+      "收益结算",
+      "玩法教学"
     ],
-    "link": "https://pan.quark.cn/s/4fbf1d58e543"
+    "link": "#projects"
+  },
+  {
+    "name": "广告代理",
+    "tag": "tool",
+    "img": "images/project-10.svg",
+    "desc": "对接广告主与流量主，赚取广告差价与佣金。",
+    "resources": [
+      "广告主资源",
+      "投放策略",
+      "佣金结算",
+      "渠道管理"
+    ],
+    "link": "#projects"
+  },
+  {
+    "name": "拉新项目",
+    "tag": "tool",
+    "img": "images/project-11.svg",
+    "desc": "平台拉新任务，邀请注册赚奖励，持续更新。",
+    "resources": [
+      "拉新任务",
+      "邀请渠道",
+      "奖励结算",
+      "操作教程"
+    ],
+    "link": "#projects"
   }
 ];
