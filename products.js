@@ -109,7 +109,7 @@ window.SITE_PRODUCTS = [
       "玩法教学",
       "联系QQ：2092307480"
     ],
-    "link": "https://wpa.qq.com/msgrd?v=3&uin=2092307480&site=qq&menu=yes"
+    "link": "qq:2092307480"
   },
   {
     "name": "广告代理",
@@ -123,7 +123,7 @@ window.SITE_PRODUCTS = [
       "渠道管理",
       "联系QQ：2092307480"
     ],
-    "link": "https://wpa.qq.com/msgrd?v=3&uin=2092307480&site=qq&menu=yes"
+    "link": "qq:2092307480"
   },
   {
     "name": "拉新项目",
@@ -137,6 +137,6 @@ window.SITE_PRODUCTS = [
       "操作教程",
       "联系QQ：2092307480"
     ],
-    "link": "https://wpa.qq.com/msgrd?v=3&uin=2092307480&site=qq&menu=yes"
+    "link": "qq:2092307480"
   }
 ];

@@ -337,6 +337,12 @@
     <button class="pop-close" id="popClose" type="button" aria-label="关闭">×</button>
     <a class="pop-link" id="popLink" href="#projects">查看项目 →</a>
   </div>
+<div class="qq-pop" id="qqPop" data-qq="2092307480" hidden>
+  <div class="qq-pop-title">联系 QQ</div>
+  <div class="qq-pop-num">2092307480</div>
+  <button class="qq-pop-btn" id="qqCopyBtn" type="button">复制 QQ</button>
+  <button class="qq-pop-close" id="qqPopClose" type="button" aria-label="关闭">×</button>
+</div>
 <!-- floating content navigation widget -->
   <style>
     .msg-widget{position:fixed;left:16px;top:72px;z-index:9999;font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;}
@@ -601,7 +607,9 @@
           e.stopPropagation();
           spawnShock(item);
           var href = item.getAttribute('href') || '';
-          if (href && href !== '#' && href !== '#projects') {
+          if (href.indexOf('qq:') === 0) {
+            if (window.showQqPop) window.showQqPop(item);
+          } else if (href && href !== '#' && href !== '#projects') {
             window.open(href, '_blank', 'noopener');
           } else {
             var chip = document.querySelector('.chip[data-filter="' + (item.getAttribute('data-filter') || 'all') + '"]');
@@ -767,7 +775,49 @@
     })();
   </script>
 
-  <script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
+  <script>
+  (function () {
+    var qqPop = document.getElementById('qqPop');
+    if (!qqPop) return;
+    var qqNum = qqPop.getAttribute('data-qq') || '2092307480';
+    window.showQqPop = function (el) {
+      var rect = el.getBoundingClientRect();
+      var left = rect.right + 12;
+      if (left + qqPop.offsetWidth > window.innerWidth - 8) left = rect.left - qqPop.offsetWidth - 12;
+      var top = rect.top + rect.height / 2 - qqPop.offsetHeight / 2;
+      top = Math.max(8, Math.min(top, window.innerHeight - qqPop.offsetHeight - 8));
+      qqPop.style.left = left + 'px';
+      qqPop.style.top = top + 'px';
+      qqPop.hidden = false;
+    };
+    document.addEventListener('click', function (e) {
+      var link = e.target && e.target.closest ? e.target.closest('a[href^="qq:"]') : null;
+      if (link) {
+        e.preventDefault();
+        e.stopPropagation();
+        window.showQqPop(link);
+      } else if (qqPop.hidden === false && !(qqPop.contains && qqPop.contains(e.target))) {
+        qqPop.hidden = true;
+      }
+    });
+    var copyBtn = document.getElementById('qqCopyBtn');
+    if (copyBtn) copyBtn.addEventListener('click', function (e) {
+      e.stopPropagation();
+      var ta = document.createElement('textarea');
+      ta.value = qqNum;
+      ta.style.position = 'fixed';
+      ta.style.opacity = '0';
+      document.body.appendChild(ta);
+      ta.select();
+      try { document.execCommand('copy'); } catch (err) {}
+      document.body.removeChild(ta);
+      copyBtn.textContent = '已复制';
+      setTimeout(function () { copyBtn.textContent = '复制 QQ'; }, 1500);
+    });
+    var closeBtn = document.getElementById('qqPopClose');
+    if (closeBtn) closeBtn.addEventListener('click', function () { qqPop.hidden = true; });
+  })();
+</script><script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script>
   <script>
     (function () {
       var el = document.getElementById('nebula3d');
