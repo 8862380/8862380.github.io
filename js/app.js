@@ -70,7 +70,7 @@ const THEME_SWATCH = {
 function lsGet(k) { try { return window.localStorage.getItem(k); } catch (e) { return null; } }
 function lsSet(k, v) { try { window.localStorage.setItem(k, v); } catch (e) {} }
 const savedTheme = lsGet('siteTheme');
-let currentTheme = (THEME_KEYS.indexOf(savedTheme) > -1) ? savedTheme : (document.documentElement.dataset.theme || 'royal');
+let currentTheme = (THEME_KEYS.indexOf(savedTheme) > -1) ? savedTheme : (document.documentElement.dataset.theme || 'tech');
 const applyTheme = () => {
   document.documentElement.dataset.theme = currentTheme;
   themeBtn.textContent = '主题';
