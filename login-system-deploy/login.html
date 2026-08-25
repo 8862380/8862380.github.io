@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>登录 · 开物 AI 资源站</title>
+  <meta name="robots" content="noindex">
+  <link rel="stylesheet" href="css/auth.css">
+</head>
+<body>
+  <div class="auth-shell">
+    <div class="auth-card">
+      <div class="brand">
+        <span class="brand-mark">开</span>
+        <span class="brand-name">开物 AI 资源站</span>
+      </div>
+
+      <h1>登录账号</h1>
+      <p class="sub">登录后即可使用会员功能。新账号需通过后台审核后才能登录。</p>
+
+      <form id="loginForm" novalidate>
+        <label for="email">电子邮箱</label>
+        <input id="email" name="email" type="email" autocomplete="email"
+               placeholder="you@example.com" required>
+
+        <label for="password">密码</label>
+        <input id="password" name="password" type="password"
+               autocomplete="current-password" placeholder="请输入密码" required>
+
+        <button class="btn" id="submitBtn" type="submit">登录</button>
+      </form>
+
+      <div class="msg" id="msg"></div>
+
+      <div class="switch">
+        还没有账号？<a href="register.html">立即注册</a>
+      </div>
+      <div style="text-align:center">
+        <a class="back-home" href="index.html">← 返回首页</a>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/supabase-config.js"></script>
+  <script src="js/auth.js"></script>
+  <script>
+    'use strict';
+    const form = document.getElementById('loginForm');
+    const msg = document.getElementById('msg');
+    const btn = document.getElementById('submitBtn');
+
+    function showMsg(text, type) {
+      msg.textContent = text;
+      msg.className = 'msg show ' + (type || 'error');
+    }
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const email = document.getElementById('email').value;
+      const password = document.getElementById('password').value;
+
+      if (!email || !password) {
+        showMsg('请填写邮箱和密码。', 'error');
+        return;
+      }
+
+      btn.disabled = true;
+      btn.textContent = '登录中…';
+      showMsg('', 'error');
+
+      try {
+        const { error } = await AUTH.signIn(email, password);
+        if (error) {
+          // 邮箱未确认等错误信息
+          if (/Email not confirmed/i.test(error.message)) {
+            showMsg('邮箱尚未确认，请先查收确认邮件。', 'error');
+          } else if (/Invalid login credentials/i.test(error.message)) {
+            showMsg('邮箱或密码错误。', 'error');
+          } else {
+            showMsg(error.message, 'error');
+          }
+          return;
+        }
+
+        // 登录成功，检查审核状态
+        const profile = await AUTH.myProfile();
+        if (!profile) {
+          await AUTH.signOut();
+          showMsg('未找到账号档案，请联系管理员。', 'error');
+          return;
+        }
+
+        if (profile.status === 'approved') {
+          showMsg('登录成功，正在跳转…', 'ok');
+          setTimeout(() => {
+            location.href = window.AUTH_CONFIG.HOME_URL || 'index.html';
+          }, 500);
+        } else if (profile.status === 'pending') {
+          await AUTH.signOut();
+          showMsg('你的账号已注册，正在等待管理员审核。\n审核通过后即可登录。', 'info');
+        } else if (profile.status === 'rejected') {
+          await AUTH.signOut();
+          showMsg('抱歉，你的注册申请未通过审核。', 'error');
+        } else {
+          await AUTH.signOut();
+          showMsg('账号状态异常，请联系管理员。', 'error');
+        }
+      } catch (err) {
+        showMsg('发生错误：' + err.message, 'error');
+      } finally {
+        btn.disabled = false;
+        btn.textContent = '登录';
+      }
+    });
+  </script>
+</body>
+</html>
