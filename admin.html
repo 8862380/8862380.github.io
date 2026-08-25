@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>后台审核 · 开物 AI 资源站</title>
+  <meta name="robots" content="noindex">
+  <link rel="stylesheet" href="css/auth.css">
+</head>
+<body>
+  <!-- 管理员登录视图 -->
+  <div class="auth-shell" id="loginView" hidden>
+    <div class="auth-card">
+      <div class="brand">
+        <span class="brand-mark">开</span>
+        <span class="brand-name">开物 AI 资源站 · 后台</span>
+      </div>
+      <h1>管理员登录</h1>
+      <p class="sub">仅限已授权的管理员邮箱登录。</p>
+
+      <form id="adminLoginForm" novalidate>
+        <label for="adminEmail">电子邮箱</label>
+        <input id="adminEmail" type="email" autocomplete="email"
+               placeholder="admin@example.com" required>
+        <label for="adminPassword">密码</label>
+        <input id="adminPassword" type="password" autocomplete="current-password"
+               placeholder="请输入密码" required>
+        <button class="btn" id="adminLoginBtn" type="submit">登录后台</button>
+      </form>
+      <div class="msg" id="adminMsg"></div>
+    </div>
+  </div>
+
+  <!-- 审核面板视图 -->
+  <div class="admin-shell" id="dashView" hidden>
+    <div class="admin-head">
+      <div>
+        <div class="title">注册审核</div>
+        <div class="who" id="whoAmI"></div>
+      </div>
+      <button class="btn ghost" id="logoutBtn" style="width:auto;margin:0;padding:9px 16px">
+        退出登录
+      </button>
+    </div>
+
+    <div class="tabs">
+      <button class="tab active" data-tab="pending">待审核 <span class="count" id="countPending"></span></button>
+      <button class="tab" data-tab="approved">已通过 <span class="count" id="countApproved"></span></button>
+      <button class="tab" data-tab="rejected">已拒绝 <span class="count" id="countRejected"></span></button>
+    </div>
+
+    <div class="msg" id="dashMsg"></div>
+    <div id="list"></div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script src="js/supabase-config.js"></script>
+  <script src="js/auth.js"></script>
+  <script>
+    'use strict';
+    const loginView = document.getElementById('loginView');
+    const dashView = document.getElementById('dashView');
+    const listEl = document.getElementById('list');
+    const dashMsg = document.getElementById('dashMsg');
+    const adminMsg = document.getElementById('adminMsg');
+
+    let profiles = [];
+    let activeTab = 'pending';
+
+    function showAdminMsg(text, type) {
+      adminMsg.textContent = text;
+      adminMsg.className = 'msg show ' + (type || 'error');
+    }
+    function showDashMsg(text, type) {
+      dashMsg.textContent = text;
+      dashMsg.className = 'msg show ' + (type || 'error');
+    }
+
+    const STATUS_LABEL = {
+      pending: '待审核',
+      approved: '已通过',
+      rejected: '已拒绝'
+    };
+
+    async function refresh() {
+      try {
+        profiles = await AUTH.listProfiles();
+      } catch (err) {
+        showDashMsg('加载失败：' + err.message, 'error');
+        profiles = [];
+      }
+      render();
+    }
+
+    function render() {
+      const pending = profiles.filter(p => p.status === 'pending');
+      const approved = profiles.filter(p => p.status === 'approved');
+      const rejected = profiles.filter(p => p.status === 'rejected');
+
+      document.getElementById('countPending').textContent = pending.length
+        ? '(' + pending.length + ')' : '';
+      document.getElementById('countApproved').textContent = approved.length
+        ? '(' + approved.length + ')' : '';
+      document.getElementById('countRejected').textContent = rejected.length
+        ? '(' + rejected.length + ')' : '';
+
+      const group = { pending, approved, rejected }[activeTab] || [];
+      listEl.innerHTML = '';
+
+      if (!group.length) {
+        const empty = document.createElement('div');
+        empty.className = 'empty';
+        empty.textContent = '暂无' + (STATUS_LABEL[activeTab] || '') + '的用户';
+        listEl.appendChild(empty);
+        return;
+      }
+
+      group.forEach(p => {
+        listEl.appendChild(buildRow(p));
+      });
+    }
+
+    function buildRow(p) {
+      const row = document.createElement('div');
+      row.className = 'row';
+
+      const top = document.createElement('div');
+      top.className = 'top';
+
+      const left = document.createElement('div');
+      const email = document.createElement('div');
+      email.className = 'email';
+      email.textContent = p.email;
+      const meta = document.createElement('div');
+      meta.className = 'meta';
+      meta.textContent =
+        (p.display_name ? '昵称：' + p.display_name + ' · ' : '') +
+        '注册于 ' + AUTH.fmtTime(p.created_at) +
+        (p.status === 'approved' && p.approved_at ? ' · 通过于 ' + AUTH.fmtTime(p.approved_at) : '') +
+        (p.status === 'rejected' && p.rejected_at ? ' · 拒绝于 ' + AUTH.fmtTime(p.rejected_at) : '');
+      left.appendChild(email);
+      left.appendChild(meta);
+
+      const badge = document.createElement('span');
+      badge.className = 'badge ' + p.status;
+      badge.textContent = STATUS_LABEL[p.status] || p.status;
+
+      top.appendChild(left);
+      top.appendChild(badge);
+      row.appendChild(top);
+
+      if (p.note) {
+        const note = document.createElement('div');
+        note.className = 'note';
+        note.textContent = '备注：' + p.note;
+        row.appendChild(note);
+      }
+
+      if (p.status === 'pending') {
+        const noteInput = document.createElement('textarea');
+        noteInput.placeholder = '审核备注（可选）';
+        noteInput.className = 'pending-note';
+        noteInput.style.marginTop = '12px';
+        row.appendChild(noteInput);
+
+        const actions = document.createElement('div');
+        actions.className = 'actions';
+
+        const approve = document.createElement('button');
+        approve.className = 'btn approve';
+        approve.textContent = '通过';
+        approve.addEventListener('click', () => setStatus(p.id, 'approved', noteInput.value, approve));
+
+        const reject = document.createElement('button');
+        reject.className = 'btn reject';
+        reject.textContent = '拒绝';
+        reject.addEventListener('click', () => setStatus(p.id, 'rejected', noteInput.value, reject));
+
+        actions.appendChild(approve);
+        actions.appendChild(reject);
+        row.appendChild(actions);
+      }
+
+      return row;
+    }
+
+    async function setStatus(id, status, note, btn) {
+      if (status === 'rejected' && !confirm('确定要拒绝该注册申请吗？')) return;
+      btn.disabled = true;
+      btn.textContent = status === 'approved' ? '处理中…' : '处理中…';
+      try {
+        await AUTH.setProfileStatus(id, status, note);
+        showDashMsg(status === 'approved' ? '已通过该用户。' : '已拒绝该用户。', 'ok');
+        await refresh();
+      } catch (err) {
+        showDashMsg('操作失败：' + err.message, 'error');
+        btn.disabled = false;
+        btn.textContent = status === 'approved' ? '通过' : '拒绝';
+      }
+    }
+
+    document.querySelectorAll('.tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+        activeTab = tab.dataset.tab;
+        render();
+      });
+    });
+
+    document.getElementById('logoutBtn').addEventListener('click', async () => {
+      await AUTH.signOut();
+      showLogin();
+    });
+
+    document.getElementById('adminLoginForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const email = document.getElementById('adminEmail').value;
+      const password = document.getElementById('adminPassword').value;
+      const btn = document.getElementById('adminLoginBtn');
+      if (!email || !password) return showAdminMsg('请填写邮箱和密码。', 'error');
+
+      btn.disabled = true;
+      btn.textContent = '登录中…';
+      showAdminMsg('', 'error');
+      try {
+        const { error } = await AUTH.signIn(email, password);
+        if (error) {
+          showAdminMsg(/Invalid login credentials/i.test(error.message)
+            ? '邮箱或密码错误。' : error.message, 'error');
+          return;
+        }
+        await boot();
+      } catch (err) {
+        showAdminMsg('发生错误：' + err.message, 'error');
+      } finally {
+        btn.disabled = false;
+        btn.textContent = '登录后台';
+      }
+    });
+
+    function showLogin() {
+      loginView.hidden = false;
+      dashView.hidden = true;
+    }
+
+    async function showDashboard(user) {
+      loginView.hidden = true;
+      dashView.hidden = false;
+      document.getElementById('whoAmI').textContent = '当前管理员：' + user.email;
+      showDashMsg('', 'error');
+      await refresh();
+    }
+
+    async function boot() {
+      const user = await AUTH.getUser();
+      if (!user) return showLogin();
+      try {
+        const admin = await AUTH.isAdmin();
+        if (!admin) {
+          await AUTH.signOut();
+          showLogin();
+          showAdminMsg('当前账号不是管理员，无权限访问后台。', 'error');
+          return;
+        }
+        await showDashboard(user);
+      } catch (err) {
+        showLogin();
+        showAdminMsg('校验失败：' + err.message, 'error');
+      }
+    }
+
+    boot();
+  </script>
+</body>
+</html>
