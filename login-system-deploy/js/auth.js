@@ -45,7 +45,11 @@
       return supabase.auth.signUp({
         email: email.trim().toLowerCase(),
         password,
-        options: { data: { display_name: (displayName || '').trim() } }
+        options: {
+          data: { display_name: (displayName || '').trim() },
+          // 确认邮件里的链接跳转到登录页
+          emailRedirectTo: (cfg.SITE_URL || '') + '/login.html'
+        }
       });
     },
 
