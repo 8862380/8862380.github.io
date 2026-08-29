@@ -15,8 +15,8 @@
         <span class="brand-name">弈勇 AI 资源站</span>
       </div>
 
-      <h1>注册账号</h1>
-      <p class="sub">使用电子邮箱注册。提交后需等待管理员后台审核，通过后才能登录。</p>
+      <h1>会员免费注册</h1>
+      <p class="sub">使用电子邮箱免费注册会员。提交后需等待管理员后台审核，通过后才能登录。</p>
 
       <form id="registerForm" novalidate>
         <label for="displayName">昵称（可选）</label>
@@ -89,12 +89,11 @@
           return;
         }
 
-        // 如果 Supabase 开启了“邮箱确认”，signUp 不会返回 session
-        if (!data.session) {
-          showMsg('注册成功！\n请先查收邮箱完成确认，之后等待管理员审核。', 'ok');
-        } else {
-          showMsg('注册成功！\n你的账号已进入待审核状态，通过后即可登录。', 'ok');
+        // 已关闭邮箱确认：注册即成功，退出登录让用户走正常登录流程
+        if (data.session) {
+          await AUTH.signOut();
         }
+        showMsg('注册成功！你的账号已提交，等待管理员审核，通过后即可登录。', 'ok');
 
         btn.disabled = false;
         btn.textContent = '注册';

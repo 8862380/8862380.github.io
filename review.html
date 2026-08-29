@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>注册审核 · 弈勇</title>
+<meta name="robots" content="noindex">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;background:#f2f4f8;color:#111;min-height:100vh}
+.wrap{max-width:620px;margin:0 auto;padding:24px 16px 60px}
+.card{background:#fff;border-radius:16px;box-shadow:0 10px 30px rgba(0,0,0,.08);padding:32px 24px;margin-top:60px}
+h1{font-size:22px}
+.sub{color:#667;margin:6px 0 20px;font-size:14px}
+input{width:100%;padding:12px 14px;border:1px solid #d8dce3;border-radius:10px;font-size:15px;margin-bottom:12px;outline:none}
+input:focus{border-color:#6366f1}
+button{font-family:inherit;cursor:pointer;border:none;border-radius:10px}
+.btn{width:100%;padding:13px;background:linear-gradient(135deg,#6366f1,#ec4899);color:#fff;font-size:16px;font-weight:600}
+.btn:disabled{opacity:.6;cursor:wait}
+.msg{min-height:20px;margin-top:12px;font-size:14px;border-radius:8px;padding:8px 10px;display:none}
+.msg.show{display:block}
+.msg.error{background:#fee2e2;color:#b91c1c}
+.msg.ok{background:#dcfce7;color:#15803d}
+.msg.info{background:#e0e7ff;color:#3730a3}
+.head{display:flex;justify-content:space-between;align-items:center;margin-bottom:18px}
+.who{font-size:13px;color:#667;margin-top:4px}
+.logout{padding:8px 14px;background:#fff;border:1px solid #d8dce3;border-radius:10px;font-size:13px}
+.stats{display:flex;gap:10px;margin-bottom:14px}
+.stat{flex:1;background:#fff;border:1px solid #e6e9ef;border-radius:12px;padding:12px;text-align:center;cursor:pointer;font-size:13px;color:#667}
+.stat b{display:block;font-size:22px;color:#111;margin-bottom:2px}
+.stat.active{border-color:#6366f1;background:#eef0ff}
+.row{background:#fff;border:1px solid #e6e9ef;border-radius:12px;padding:14px 16px;margin-bottom:10px}
+.email{font-weight:600;font-size:15px;word-break:break-all}
+.meta{font-size:12px;color:#889;margin-top:3px}
+.note-in{width:100%;margin-top:10px;padding:9px 11px;border:1px solid #d8dce3;border-radius:8px;font-size:13px;font-family:inherit;resize:vertical}
+.actions{display:flex;gap:10px;margin-top:10px}
+.actions button{flex:1;padding:10px;font-size:14px;font-weight:600}
+.okbtn{background:#dcfce7;color:#15803d}
+.nobtn{background:#fee2e2;color:#b91c1c}
+.badge{display:inline-block;font-size:11px;padding:2px 8px;border-radius:99px;margin-top:6px}
+.badge.pending{background:#e0e7ff;color:#3730a3}
+.badge.approved{background:#dcfce7;color:#15803d}
+.badge.rejected{background:#fee2e2;color:#b91c1c}
+.empty{text-align:center;color:#99a;padding:30px 0;font-size:14px}
+</style>
+</head>
+<body>
+<div class="wrap" id="loginView">
+  <div class="card">
+    <h1>弈勇 · 审核后台</h1>
+    <p class="sub">仅限管理员邮箱登录</p>
+    <form id="loginForm" novalidate>
+      <input id="email" type="email" placeholder="管理员邮箱" autocomplete="email" required>
+      <input id="password" type="password" placeholder="密码" autocomplete="current-password" required>
+      <button class="btn" id="loginBtn" type="submit">登录后台</button>
+    </form>
+    <div class="msg" id="loginMsg"></div>
+  </div>
+</div>
+
+<div class="wrap" id="dashView" hidden>
+  <div class="head">
+    <div>
+      <h1>注册审核</h1>
+      <div class="who" id="who"></div>
+    </div>
+    <button class="logout" id="logoutBtn">退出</button>
+  </div>
+  <div class="stats">
+    <div class="stat active" data-tab="pending"><b id="nPending">0</b>待审核</div>
+    <div class="stat" data-tab="approved"><b id="nApproved">0</b>已通过</div>
+    <div class="stat" data-tab="rejected"><b id="nRejected">0</b>已拒绝</div>
+  </div>
+  <div id="list"></div>
+  <div class="msg" id="dashMsg"></div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="js/supabase-config.js"></script>
+<script src="js/auth.js"></script>
+<script>
+'use strict';
+const $=id=>document.getElementById(id);
+let profiles=[], tab='pending';
+const STATUS={pending:'待审核',approved:'已通过',rejected:'已拒绝'};
+
+function showMsg(el,text,type){el.textContent=text;el.className='msg show '+(type||'error');}
+function clearMsg(el){el.textContent='';el.className='msg';}
+
+$('loginForm').addEventListener('submit',async e=>{
+  e.preventDefault();
+  const email=$('email').value.trim(), password=$('password').value;
+  if(!email||!password)return showMsg($('loginMsg'),'请填写邮箱和密码','error');
+  const btn=$('loginBtn');btn.disabled=true;btn.textContent='登录中…';clearMsg($('loginMsg'));
+  try{
+    const {error}=await AUTH.signIn(email,password);
+    if(error){showMsg($('loginMsg'),/Invalid login credentials/i.test(error.message)?'邮箱或密码错误':error.message,'error');return;}
+    await boot();
+  }catch(err){showMsg($('loginMsg'),'发生错误：'+err.message,'error');}
+  finally{btn.disabled=false;btn.textContent='登录后台';}
+});
+
+$('logoutBtn').addEventListener('click',async()=>{await AUTH.signOut();location.reload();});
+
+document.querySelectorAll('.stat').forEach(s=>s.addEventListener('click',()=>{
+  document.querySelectorAll('.stat').forEach(x=>x.classList.remove('active'));
+  s.classList.add('active');tab=s.dataset.tab;render();
+}));
+
+async function refresh(){
+  try{profiles=await AUTH.listProfiles();}catch(err){showMsg($('dashMsg'),'加载失败：'+err.message,'error');profiles=[];}
+  render();
+}
+
+function render(){
+  const pending=profiles.filter(p=>p.status==='pending');
+  const approved=profiles.filter(p=>p.status==='approved');
+  const rejected=profiles.filter(p=>p.status==='rejected');
+  $('nPending').textContent=pending.length;
+  $('nApproved').textContent=approved.length;
+  $('nRejected').textContent=rejected.length;
+  const group={pending,approved,rejected}[tab]||[];
+  const list=$('list');list.innerHTML='';
+  if(!group.length){const d=document.createElement('div');d.className='empty';d.textContent='暂无'+STATUS[tab]+'的用户';list.appendChild(d);return;}
+  group.forEach(p=>list.appendChild(row(p)));
+}
+
+function row(p){
+  const r=document.createElement('div');r.className='row';
+  const e=document.createElement('div');e.className='email';e.textContent=p.email;
+  const m=document.createElement('div');m.className='meta';
+  m.textContent=(p.display_name?'昵称：'+p.display_name+' · ':'')+'注册于 '+AUTH.fmtTime(p.created_at);
+  const b=document.createElement('span');b.className='badge '+p.status;b.textContent=STATUS[p.status]||p.status;
+  r.appendChild(e);r.appendChild(m);r.appendChild(b);
+  if(p.note){const n=document.createElement('div');n.className='meta';n.textContent='备注：'+p.note;r.appendChild(n);}
+  if(p.status==='pending'){
+    const t=document.createElement('textarea');t.className='note-in';t.placeholder='审核备注（可选）';
+    const a=document.createElement('div');a.className='actions';
+    const ok=document.createElement('button');ok.className='okbtn';ok.textContent='通过';
+    const no=document.createElement('button');no.className='nobtn';no.textContent='拒绝';
+    ok.onclick=()=>setStatus(p.id,'approved',t.value,ok);
+    no.onclick=()=>setStatus(p.id,'rejected',t.value,no);
+    a.appendChild(ok);a.appendChild(no);r.appendChild(t);r.appendChild(a);
+  }
+  return r;
+}
+
+async function setStatus(id,status,note,btn){
+  if(status==='rejected'&&!confirm('确定拒绝该注册申请吗？'))return;
+  btn.disabled=true;
+  try{await AUTH.setProfileStatus(id,status,note);showMsg($('dashMsg'),status==='approved'?'已通过该用户':'已拒绝该用户','ok');await refresh();}
+  catch(err){showMsg($('dashMsg'),'操作失败：'+err.message,'error');btn.disabled=false;}
+}
+
+async function boot(){
+  const user=await AUTH.getUser();
+  if(!user){showLogin();return;}
+  try{
+    const admin=await AUTH.isAdmin();
+    if(!admin){await AUTH.signOut();showLogin();showMsg($('loginMsg'),'当前账号不是管理员，无权限访问后台','error');return;}
+    $('loginView').hidden=true;$('dashView').hidden=false;
+    $('who').textContent='管理员：'+user.email;
+    clearMsg($('dashMsg'));await refresh();
+  }catch(err){showLogin();showMsg($('loginMsg'),'校验失败：'+err.message,'error');}
+}
+
+function showLogin(){$('loginView').hidden=false;$('dashView').hidden=true;}
+boot();
+</script>
+</body>
+</html>
