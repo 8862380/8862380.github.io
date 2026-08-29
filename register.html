@@ -25,7 +25,7 @@
 
         <label for="email">电子邮箱</label>
         <input id="email" name="email" type="email" autocomplete="email"
-               placeholder="you@example.com" required>
+               placeholder="随便填，如 123456@qq.com（无需真实邮箱）" required>
 
         <label for="password">密码</label>
         <input id="password" name="password" type="password"
@@ -83,6 +83,8 @@
         if (error) {
           if (/already registered/i.test(error.message)) {
             showMsg('该邮箱已注册，可直接去登录。', 'error');
+          } else if (/invalid format|invalid email/i.test(error.message)) {
+            showMsg('邮箱格式不正确：请填写类似 123456@qq.com 的格式（不需要真实邮箱）。', 'error');
           } else {
             showMsg(error.message, 'error');
           }
